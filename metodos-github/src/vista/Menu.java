@@ -4,7 +4,9 @@
  */
 package vista;
 
+import controlador.Caracteres;
 import controlador.Numeros;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -12,7 +14,6 @@ import java.util.Scanner;
  * @author emont
  */
 public class Menu {
-    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
@@ -21,13 +22,22 @@ public class Menu {
         scanner.nextLine(); // Limpiar el buffer
 
         int[][] matriz = new int[tamanio][tamanio];
+        String[][] matrizCadenas = new String[tamanio][tamanio];
 
         System.out.println("Ingrese los numeros para el arreglo:");
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
                 matriz[i][j] = scanner.nextInt();
             }
+             scanner.nextLine(); 
         }
+        System.out.println("Ingrese las cadenas para el arreglo:");
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                matrizCadenas[i][j] = scanner.nextLine();
+            }
+        }
+        
         while (true) {
             System.out.println("Seleccione una opcion:");
             System.out.println("1. Numeros");
@@ -65,8 +75,26 @@ public class Menu {
                         System.out.println("Opción invalida");
                 }
             } else if (opcion == 2) {
-                
-                
+                 System.out.println("Seleccione una operación para el ejercicio de caracteres:");
+    System.out.println("a. Cadenas que comienzan con 'o'");
+    System.out.println("b. Cadena con 5 vocales");
+    System.out.println("c. Cadenas que contienen 'sa'");
+    char subOpcion = scanner.nextLine().toLowerCase().charAt(0); // Convertir a minúsculas para mayor flexibilidad
+
+    switch (subOpcion) {
+        case 'a':
+            System.out.println("Cadenas que comienzan con 'o': " + Arrays.toString(Caracteres.encontrarCadenasConO(matrizCadenas)));
+            break;
+        case 'b':
+            String cadenaCincoVocales = Caracteres.encontrarCadenaConCincoVocales(matrizCadenas);
+            System.out.println("Cadena con 5 vocales: " + (cadenaCincoVocales != null ? cadenaCincoVocales : "No se encontró ninguna cadena con 5 vocales"));
+            break;
+        case 'c':
+            System.out.println("Cadenas que contienen 'sa': " + Arrays.toString(Caracteres.encontrarCadenasConSa(matrizCadenas)));
+            break;
+        default:
+            System.out.println("Opción inválida");
+    }
                 
             } else if (opcion == 3) {
                 System.out.println("Saliendo...");
@@ -76,5 +104,7 @@ public class Menu {
             }
         }
     }
+   
 }
     
+
